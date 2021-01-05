@@ -4,16 +4,31 @@
   "description": "Backend para el Sistema web automatizado para el control de salida de minerales de los yacimientos de comibol ",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "build": "babel src --out-dir build",
+    "dev": "nodemon src/index.js --exec babel-node",
+    "start": "node build/index.js"
   },
   "author": "Freddy Copa Mamani",
   "license": "ISC",
   "dependencies": {
     "@hapi/boom": "^9.1.1",
     "@hapi/joi": "^17.1.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "helmet": "^4.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.11.8",
-    "mongoose-autopopulate": "^0.12.3"
+    "mongoose-autopopulate": "^0.12.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "nodemon": "^2.0.6"
   }
 }

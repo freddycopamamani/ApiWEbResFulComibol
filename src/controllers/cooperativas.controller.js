@@ -1,4 +1,4 @@
-const Cooperativas = require("../models/Cooperativa");
+/*const Cooperativas = require("../models/Cooperativa");
 
 module.exports = {
     listaCooperativas : async (req, res) => {
@@ -46,4 +46,40 @@ module.exports = {
 
         res.send(`${coopActualizado.nombre_Coop} actualizado`);
     }
+}*/
+import Cooperativas from '../models/Cooperativa';
+
+export const createCooperativa  = async(req, res) => {
+    const { nombre_Coop, direccion_Coop, telefono_Coop } = req.body;
+    const nuevaCooperativa = new Cooperativas({
+        nombre_Coop,
+        direccion_Coop,
+        telefono_Coop
+    })
+    await nuevaCooperativa.save();
+    res.status(201).send({mensaje: "Cooperativa creado."});
+}
+
+export const getCooperativas  = async(req, res) => {
+    const listaCoop = await Cooperativas.find();
+    res.status(200).json(listaCoop)
+}
+
+export const getCooperativaById  = async(req, res) => {
+    const { _id } = req.params;
+    const CoopById = await Cooperativas.findById(_id)
+    res.status(200).json(CoopById);
+}
+
+export const updateCooperativaById  = async(req, res) => {
+    const {_id } = req.params;
+    await Cooperativas.findByIdAndUpdate(_id, req.body, {
+        new:true
+    })
+    res.status(200).send({mensaje: "Cooperativa actualizado correctamente"});
+}
+export const deleteCooperativaById  = async(req, res) => {
+    const { _id } = req.params;
+    await Cooperativas.findByIdAndDelete(_id);
+    res.status(200).send({mensaje : "Cooperativa eliminado correctamente"});
 }
