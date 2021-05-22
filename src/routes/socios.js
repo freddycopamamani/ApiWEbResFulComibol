@@ -5,9 +5,10 @@ const validador = require('../middleware/validadorDatos');
 
 const api = express.Router();
 
-api.post("/socio", validador(Soc_Schema), SociosController.crearSocio);
-api.get("/socio", SociosController.listaSocios);
-api.put("/socio/:_id", SociosController.actualizarSocio );
-api.delete("/socio/:_id", SociosController.eliminarSocio);
+api.post("/",  SociosController.crearSocio);
+api.get("/", SociosController.listaSocios);
+api.get("/:id", SociosController.getSocioById);
+api.put("/:id", SociosController.actualizarSocio );
+api.delete("/:id", SociosController.eliminarSocio);
 
 module.exports = api;

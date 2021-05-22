@@ -5,6 +5,7 @@ const schemaCoop = new Schema({
     nombre_Coop :{ type: String, required: true},
     direccion_Coop: { type: String, required: true},
     telefono_Coop: {type: String, required: true},
+    razonSocial_Coop: {type: String, required: true},
     bocaminas_Coop: [{ type: Schema.Types.ObjectId, ref: 'bocaminas', autopopulate: true}],
 });
 
@@ -19,11 +20,14 @@ const schemaCoop =  new Schema({
     nombre_Coop :{ type: String, required: true},
     direccion_Coop: { type: String, required: true},
     telefono_Coop: {type: String, required: true},
-    bocaminas_Coop: [{ type: Schema.Types.ObjectId, ref: 'bocaminas', autopopulate: true}],
+    razonSocial_Coop: {type: String, required: true},
+    //bocaminas_Coop: [{ type: Schema.Types.ObjectId, ref: 'bocaminas', autopopulate: true}],
 },
 {
     timestamps: true,
     versionKey: false
 });
+
+//schemaCoop.plugin(require('mongoose-autopopulate'));
 
 export default model('cooperativas', schemaCoop);

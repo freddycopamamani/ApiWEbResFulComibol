@@ -18,12 +18,15 @@ module.exports = api; */
 import { Router } from 'express';
 import * as cooperativasCtrl from '../controllers/cooperativas.controller';
 import { authJwt } from '../middleware'
+import {ensureAuth} from '../middleware/authenticated';
 const router = Router();
 
-router.post('/', [ authJwt.verifyToken, authJwt.isModerator ], cooperativasCtrl.createCooperativa);
+router.post('/',  cooperativasCtrl.createCooperativa);
 router.get('/', cooperativasCtrl.getCooperativas);
-router.get('/:_id', cooperativasCtrl.getCooperativaById);
-router.put('/:_id', [ authJwt.verifyToken, authJwt.isAdmin ], cooperativasCtrl.updateCooperativaById);
-router.delete('/:_id', [ authJwt.verifyToken, authJwt.isAdmin ], cooperativasCtrl.deleteCooperativaById);
+router.get('/:id', cooperativasCtrl.getCooperativaById);
+router.put('/:id', cooperativasCtrl.updateCooperativaById);
+router.put('/asignarBocamina/:id', cooperativasCtrl.AsignarBocamina);
+router.put('/eliminarBocamina/:id', cooperativasCtrl.EliminarBocDeCoop);
+router.delete('/:_id', cooperativasCtrl.deleteCooperativaById);
 
 export default router;

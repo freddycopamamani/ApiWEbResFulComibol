@@ -8,7 +8,8 @@ const userSchema = new Schema({
     email: {type: String, unique:true},
     password: {type: String, required:true},
     role: String,
-    active: Boolean
+    active: Boolean,
+    avatar: String
 },
 {
     timestamps:true,

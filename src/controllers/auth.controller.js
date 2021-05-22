@@ -8,7 +8,7 @@ export const signUp = async (req, res) => {
   const { name, lastname, email, password, repeatPassword } = req.body;
   user.name = name;
   user.lastname = lastname;
-  user.email = email.toLowerCase();
+  user.email = email;
   user.role = "admin";
   user.active = false;
 
@@ -52,7 +52,7 @@ export const signIn = (req, res) => {
             res.status(500).send({message: "Error del servidor."});
         } else {
             if(!userStored){
-                res.status(404).send({message: "Email o contraseña invalido."})
+                res.status(404).send({message: "No existe el correo electronico"})
             } else {
                 bcrypt.compare(password, userStored.password, (err, check) =>{
                     if(err){

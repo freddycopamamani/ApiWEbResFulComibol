@@ -50,36 +50,55 @@ module.exports = {
 import Cooperativas from '../models/Cooperativa';
 
 export const createCooperativa  = async(req, res) => {
-    const { nombre_Coop, direccion_Coop, telefono_Coop } = req.body;
+    const { nombre_Coop, direccion_Coop, telefono_Coop, razonSocial_Coop } = req.body;
     const nuevaCooperativa = new Cooperativas({
         nombre_Coop,
         direccion_Coop,
-        telefono_Coop
+        telefono_Coop,
+        razonSocial_Coop
     })
     await nuevaCooperativa.save();
-    res.status(201).send({mensaje: "Cooperativa creado."});
+    res.status(200).send({message: "Cooperativa creado correctamente."});
 }
 
 export const getCooperativas  = async(req, res) => {
     const listaCoop = await Cooperativas.find();
-    res.status(200).json(listaCoop)
+    res.status(200).send({ listaCoop });
 }
 
 export const getCooperativaById  = async(req, res) => {
-    const { _id } = req.params;
-    const CoopById = await Cooperativas.findById(_id)
-    res.status(200).json(CoopById);
+    const { id } = req.params;
+    const CoopById = await Cooperativas.findById(id)
+    res.status(200).json({CoopById});
 }
 
 export const updateCooperativaById  = async(req, res) => {
-    const {_id } = req.params;
-    await Cooperativas.findByIdAndUpdate(_id, req.body, {
+    const {id } = req.params;
+    await Cooperativas.findByIdAndUpdate(id, req.body, {
         new:true
     })
-    res.status(200).send({mensaje: "Cooperativa actualizado correctamente"});
+    res.status(200).send({message: "Cooperativa actualizado correctamente."});
 }
 export const deleteCooperativaById  = async(req, res) => {
     const { _id } = req.params;
     await Cooperativas.findByIdAndDelete(_id);
-    res.status(200).send({mensaje : "Cooperativa eliminado correctamente"});
+    res.status(200).send({message : "Cooperativa eliminado correctamente."});
+}
+
+export const AsignarBocamina = async (req, res) => {
+  const { id } = req.params;
+  const { bocamina } = req.body;
+  const coopUpdate = await Cooperativas.findByIdAndUpdate(id, {
+    $push: { bocaminas_Coop: bocamina}
+  });
+  res.send(`${coopUpdate.nombre_Coop} updated`);
+}
+
+export const EliminarBocDeCoop = async (req, res) => {
+  const { id } = req.params;
+  const { bocamina } = req.body;
+  const coopUpdate = await Cooperativas.findByIdAndUpdate(id, {
+    $pull: { bocaminas_Coop: bocamina}
+  });
+  res.send(`${coopUpdate.nombre_Coop} updated`);
 }

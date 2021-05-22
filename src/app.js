@@ -29,6 +29,10 @@ import coop_Routes from './routes/cooperativas.routes'
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 import {createRoles} from './libs/initialSetup';
+import BocaminasRoutes from './routes/bocaminas'
+import sociosRoutes from './routes/socios';
+import router from './routes';
+
 
 
  
@@ -55,6 +59,9 @@ import {createRoles} from './libs/initialSetup';
  app.use(expiredTokenRoutes);
  app.use('/cooperativas', coop_Routes);
  app.use('/auth', authRoutes);
- app.use('/user', userRoutes);
+ app.use('/users', userRoutes);
+ app.use('/bocaminas', BocaminasRoutes);
+ app.use('/socios', sociosRoutes);
+ app.use('/api', router);
 
  export default app;
